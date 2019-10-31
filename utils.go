@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/oktawave-code/odk"
+	"github.com/oktawave-code/oks-sdk"
 	"log"
 	"net/http"
 	"strconv"
@@ -96,3 +97,22 @@ func getConnectionsInstancesIds_int32(connections []odk.DiskConnection) []int32 
 	return connectionIds
 }
 
+func retrieveNodeById(nodes []swagger.K44sInstance, nodeId int) (swagger.K44sInstance, error) {
+	for _, node := range nodes {
+		if nodeId == int(node.Id) {
+			return node, nil
+		}
+	}
+
+	return swagger.K44sInstance{}, fmt.Errorf("Node by id %s was not found", strconv.Itoa(nodeId))
+}
+
+func retrieveNodeByName(nodes []swagger.K44sInstance, nodeName string) (swagger.K44sInstance, error) {
+	for _, node := range nodes {
+		if nodeName == node.Name {
+			return node, nil
+		}
+	}
+
+	return swagger.K44sInstance{}, fmt.Errorf("Node by name %s was not found", nodeName)
+}
