@@ -58,7 +58,7 @@ resource "oktawave_ovs" "my_ovs"{
     # Optional: true
     # Type: int set
     # Available values: set of ints representing instance ids to which you want to attach disk(e.g [1, 2, ...])  
-	#connections_with_instanceid=[ids of instances that should be connected with volume, ...]
+	#connections_with_instanceids=[ids of instances that should be connected with volume, ...]
     
     
     # Optional: true
