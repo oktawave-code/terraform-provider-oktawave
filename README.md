@@ -17,7 +17,7 @@ go build -o terraform-provider-oktawave.exe
 4. Run terraform via command line using
 
 ```bash
-terraform init & terraform apply
+terraform init && terraform apply
 ```
 
 5. To delete infrastructure use
@@ -47,13 +47,14 @@ terraform init
     
     7. oktawave_ssheky
 
+# List of supported data sources:
+    1. oktawave_oci returns OCI ID
+
 # You can generate access_token using curl:
 	curl -k -X POST -d "grant_type=password&username=youremail&password=yourpassword&scope=oktawave.api" -u "client_id:client_secret" 'https://id.oktawave.com/core/connect/token'
 
 # Where can i find examples?
-	You can find examples at projects directory /tf_config_examples
+	You can find examples at projects directory /tf_config_examples and /tf_config_examples/complex_usage
 
 # Where can i find documentation for provider?
 	You can find documentation for particular resource of provider in example config file at projects directory /tf_config_examples
-
-

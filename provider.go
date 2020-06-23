@@ -32,6 +32,9 @@ func Provider() terraform.ResourceProvider {
 			"oktawave_kubernetes_cluster": resourceKubernetesCluster(),
 			"oktawave_kubernetes_node":    resourceNode(),
 		},
+		DataSourcesMap: map[string]*schema.Resource {
+			"oktawave_oci":								 dataSourceOci(),
+		},
 
 		ConfigureFunc: providerConfigure,
 	}
