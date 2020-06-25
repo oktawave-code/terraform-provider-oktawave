@@ -7,6 +7,6 @@ require (
 	github.com/hashicorp/logutils v1.0.0
 	github.com/hashicorp/terraform v0.12.2
 	github.com/jarcoal/httpmock v1.0.4
-	github.com/oktawave-code/odk v1.0.0
+	github.com/oktawave-code/odk v1.2.0
 	github.com/oktawave-code/oks-sdk v1.1.0
 )

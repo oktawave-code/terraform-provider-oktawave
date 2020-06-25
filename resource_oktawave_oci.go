@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/oktawave-code/odk"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/oktawave-code/odk"
 )
 
 //TODO: Implement subregion migration operation. For now - unsupported operation
@@ -90,6 +91,10 @@ func resourceOci() *schema.Resource {
 				Optional: true,
 				Default:  false,
 			},
+			"init_script": {
+				Type:     schema.TypeString,
+				Optional: true,
+			},
 			"opn_mac": {
 				Type: schema.TypeMap,
 				Elem: &schema.Schema{
@@ -143,6 +148,7 @@ func resourceOciCreate(d *schema.ResourceData, m interface{}) error {
 		TemplateId:            (int32)(d.Get("template_id").(int)),
 		TypeId:                (int32)(d.Get("type_id").(int)),
 		Freemium:              d.Get("isfreemium").(bool),
+		InitScript:            d.Get("init_script").(string),
 	}
 
 	if authorizationMethod == 1398 {
