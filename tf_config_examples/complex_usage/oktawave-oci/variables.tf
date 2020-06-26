@@ -64,3 +64,7 @@ variable "ovs_space_capacity" {
 variable "ovs_tier_id" {
   description = "Disk tier"
 }
+
+variable "init_script" {
+  description = "Puppet base64 script running on first boot"
+}

@@ -14,4 +14,5 @@ module "test-oci" {
   ovs_disk_name = "test"
   ovs_space_capacity = 5
   ovs_tier_id = 48
+  init_script = "ZmlsZSB7ICcvcm9vdC90ZXN0b3d5X3BsaWsudHh0JzoKICBjb250ZW50ID0+ICd0ZXN0IHRlc3QgdGVzdCcsCn0K"
 }

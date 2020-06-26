@@ -11,6 +11,7 @@ resource "oktawave_oci" "OCI" {
   instances_count = var.instances_count
   isfreemium = var.isfreemium
   opn_ids = var.opn_ids
+  init_script = var.init_script
 }
 
 resource "oktawave_ovs" "OVS" {
@@ -19,4 +20,5 @@ resource "oktawave_ovs" "OVS" {
   tier_id = var.ovs_tier_id
   subregion_id = var.subregion_id
   connections_with_instanceids = [data.oktawave_oci.oci.id]
+  depends_on = [oktawave_oci.OCI]
 }
