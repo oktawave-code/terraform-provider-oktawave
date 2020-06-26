@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/oktawave-code/odk"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/hashicorp/terraform/helper/schema"
+	"github.com/oktawave-code/odk"
 )
 
 func resourceOvs() *schema.Resource {
@@ -152,10 +153,13 @@ func resourceOvsRead(d *schema.ResourceData, m interface{}) error {
 	disk, resp, err := client.OVSApi.DisksGet(*auth, (int32)(id), nil)
 
 	if err != nil {
-		if resp != nil && resp.StatusCode == http.StatusNotFound {
+		//api returns 403 on missing ovs
+		if resp != nil && (resp.StatusCode == http.StatusNotFound || resp.StatusCode == http.StatusForbidden) {
+			//recreate
 			d.SetId("")
-			return fmt.Errorf("Resource OVS. READ. Resource OVS by id=%s was not found", strconv.Itoa(id))
+			return nil
 		}
+		d.SetId("")
 		return fmt.Errorf("Resource OVS. READ. Error retrieving volume: %s", err)
 	}
 
