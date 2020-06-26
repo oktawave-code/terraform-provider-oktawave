@@ -234,8 +234,9 @@ func resourceOciRead(d *schema.ResourceData, m interface{}) error {
 	instance, resp, err := client.OCIApi.InstancesGet_2(*auth, (int32)(id), nil)
 	if err != nil {
 		if resp != nil && resp.StatusCode == http.StatusNotFound {
+			//recreate
 			d.SetId("")
-			return fmt.Errorf("Resource OCI. READ. Resource OCI by id=%s was not found", strconv.Itoa(id))
+			return nil
 		}
 		return fmt.Errorf("Resource OCI. READ. Error retrieving instance: %s", err)
 	}
