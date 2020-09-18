@@ -56,6 +56,10 @@ func resourceOci() *schema.Resource {
 				Optional: true,
 				Default:  1,
 			},
+			"without_public_ip": {
+				Type:     schema.TypeBool,
+				Optional: true,
+			},
 			"init_ip_address_id": {
 				Type:     schema.TypeInt,
 				Optional: true,
@@ -149,6 +153,8 @@ func resourceOciCreate(d *schema.ResourceData, m interface{}) error {
 		TypeId:                (int32)(d.Get("type_id").(int)),
 		Freemium:              d.Get("isfreemium").(bool),
 		InitScript:            d.Get("init_script").(string),
+		WithoutPublicIp:       (bool)(d.Get("without_public_ip").(bool)),
+		OpnsIds:               retrieve_ids(d.Get("opn_ids").(*schema.Set).List()),
 	}
 
 	if authorizationMethod == 1398 {
@@ -193,13 +199,13 @@ func resourceOciCreate(d *schema.ResourceData, m interface{}) error {
 		log.Printf("[INFO] Resource OCI. CREATE. Resource Id was set - %s", d.Id())
 	}
 
-	if opnIdSet, opnIsSet := d.GetOk("opn_ids"); opnIsSet {
-		opnIds := retrieve_ids(opnIdSet.(*schema.Set).List())
-		err := attachInstanceToOpns(client, auth, opnIds, createTicket.ObjectId)
-		if err != nil {
-			return fmt.Errorf("Resource OCI. CREATE. %s", err)
-		}
-	}
+	// if opnIdSet, opnIsSet := d.GetOk("opn_ids"); opnIsSet {
+	// 	opnIds := retrieve_ids(opnIdSet.(*schema.Set).List())
+	// 	err := attachInstanceToOpns(client, auth, opnIds, createTicket.ObjectId)
+	// 	if err != nil {
+	// 		return fmt.Errorf("Resource OCI. CREATE. %s", err)
+	// 	}
+	// }
 
 	if ipIdSet, ipIsSet := d.GetOk("ip_address_ids"); ipIsSet {
 		ipIds := retrieve_ids(ipIdSet.(*schema.Set).List())

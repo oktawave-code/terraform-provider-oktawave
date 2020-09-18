@@ -251,6 +251,8 @@ github.com/oktawave-code/odk v1.0.0 h1:E9u7GfZQjNu/M7wJ1BDrKYUsT9opjfdZTbWwmGdmA
 github.com/oktawave-code/odk v1.0.0/go.mod h1:moRd3IfxPartSUqx2Bhu1XHb5EYKgAKs+9zfruJaxkM=
 github.com/oktawave-code/odk v1.2.0 h1:GrKxlxsHWR3zmVCGeYp8yT4RuAKbykVr+3R1IsPEjZY=
 github.com/oktawave-code/odk v1.2.0/go.mod h1:NwkOve5eLDBrI+tTtt/knden0bdwbRSy2OnSSABLbPI=
+github.com/oktawave-code/odk v1.3.0 h1:Hs4VTJNp4LgMLfP+k769PUiV9MKfu3puHgLfrXRV0I0=
+github.com/oktawave-code/odk v1.3.0/go.mod h1:NwkOve5eLDBrI+tTtt/knden0bdwbRSy2OnSSABLbPI=
 github.com/oktawave-code/oks-sdk v0.0.0-20190729141726-779f00e6a3f0 h1:K7IjvGM5zFgU7UjQqFVgrVw1gLEMsFw/dFR3DE73DTg=
 github.com/oktawave-code/oks-sdk v0.0.0-20190729141726-779f00e6a3f0/go.mod h1:OQxL3InqjEHgGhKJsTQMyMfFsp8XxavVNc//UljpCLA=
 github.com/oktawave-code/oks-sdk v0.0.0-20190801092809-f7e5351c62c3 h1:GQr8/JznmiXDBh9jj9UUTH1nttrc+alwTsAuJ4Rpa0I=
