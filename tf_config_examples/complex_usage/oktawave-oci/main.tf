@@ -12,6 +12,9 @@ resource "oktawave_oci" "OCI" {
   isfreemium = var.isfreemium
   opn_ids = var.opn_ids
   init_script = var.init_script
+  # path to puppet manifest file
+  # init_script = filebase64("${path.module}/${var.init_script_file}")
+  without_public_ip = var.without_public_ip
 }
 
 resource "oktawave_ovs" "OVS" {
