@@ -16,7 +16,7 @@ resource "oktawave_ip_address" "my_ip"{
 	# Optional: true
     # Type: string
     # Available values: string of available length
-	comment="example ip_updated
+	comment="example ip_updated"
 }
 
 

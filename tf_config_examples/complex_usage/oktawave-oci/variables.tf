@@ -68,3 +68,13 @@ variable "ovs_tier_id" {
 variable "init_script" {
   description = "Puppet base64 script running on first boot"
 }
+
+variable "init_script_file" {
+  description = "Path to Puppet manifest running on first boot"
+  default     = "initscript_default.pp"
+}
+
+variable "without_public_ip" {
+  description = "Create instance without default public interface"
+  default     = false
+}

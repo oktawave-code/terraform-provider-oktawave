@@ -43,31 +43,32 @@ resource "oktawave_oci" "my_oci" {
         # Required: true
         # Type: int
         # Available values: 
-			# MSSQL 2012: 80(MS SQL 2012 Standard), 81(MS SQL 2012 Web), 82(MS SQL 2012 Express)
-		
-			# MSSQL 2014 97(MS SQL 2014 Standard),  99(MS SQL 2014 Web), 101(MS SQL 2014 Express)
-		
-			# MSSQL 2016: 643(MS SQL 2016 Express), 644(MS SQL 2016 Standard), 645(MS SQL 2016 Web)
-		
-			# WINDOWS SERVER: (Windows Server  2012 R2), 624(Windows Server 2016)
-		
-			# DEBIAN: 86(Debian 7), 304(Debian 8), 765(Debian 9)
-		
-			# CentOS: 57(CentOs 6), 767(CentOS 7)
-		
-			# FreeBSD: 96(FreeBSD 10.0), 514(FreeBSD 11.0), 678(FreeBSD 11.1)
-				
-			# Red Hat Enterprise: 392(Red Hat Enterprise Linux 6), 396(Red Hat Enterprise Linux 7)
-		
-			# OpenSUSE: 68(OpenSUSE),(OpenSUSE Leap)
-		
-			# Ubuntu Server: 764(Ubuntu Server 16.04 LTS), 776(Ubuntu Server 18.04 LTS),
-		
-			# Fedora Server: 670(Fedora Server 26),   771(Fedora Server 27)
-		
-			# Others: 1(Mongo DB),   63(Ruby_On_Rails), 64(Django), 69(Zimbra), 480(RabbitMQ),  775(pfSense)
-            
-        template_id =776
+                # "ID: 69  Zimbra"
+                # "ID: 82  MS SQL 2012 Express (@ Windows 2012)"
+                # "ID: 97  MS SQL 2014 Standard (@ Windows 2012 R2)"
+                # "ID: 98  Windows Server 2012 R2"
+                # "ID: 99  MS SQL 2014 Web (@ Windows 2012 R2)"
+                # "ID: 101  MS SQL 2014 Express (@ Windows 2012 R2)"
+                # "ID: 643  MS SQL 2016 Express"
+                # "ID: 644  MS SQL 2016 Standard"
+                # "ID: 645  MS SQL 2016 Web"
+                # "ID: 1018  Ubuntu Server 18.04 LTS autobuild"
+                # "ID: 1021  Ubuntu Server 20.04 LTS autobuild"
+                # "ID: 1027  Windows Server 2019 autobuild"
+                # "ID: 1028  Windows Server Core 2019 autobuild"
+                # "ID: 1032  openSUSE Leap 15.1 autobuild"
+                # "ID: 1037  FreeBSD 12.1 autobuild"
+                # "ID: 1039  FreeBSD 11.3 autobuild"
+                # "ID: 1042  Debian 9 autobuild"
+                # "ID: 1043  Debian 10 autobuild"
+                # "ID: 1045  Ubuntu Server 16.04 LTS autobuild"
+                # "ID: 1048  CentOS 8 autobuild"
+                # "ID: 1051  CentOS 7 autobuild"
+                # "ID: 1063  Fedora Server 32 autobuild"
+                # "ID: 1091  pfSense 2.4.5 autobuild"
+                # "ID: 1095  Windows Server 2016 autobuild"
+
+        template_id = 1021
         
         # Required: true
         # Type: int
