@@ -11,8 +11,8 @@ resource "oktawave_kubernetes_cluster" "my_cluster" {
 	
 	# Required: true
 	# Type: string
-	# Available values: 1.14.3, 1.15.0
-    version="1.15.0"
+	# Available values: 1.21, 1.18
+    version="1.21"
 }
 
 
