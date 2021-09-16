@@ -1,12 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/oktawave-code/oks-sdk"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/hashicorp/terraform/helper/schema"
+	swagger "github.com/oktawave-code/oks-sdk"
 )
 
 func resourceKubernetesCluster() *schema.Resource {
@@ -49,10 +51,15 @@ func resourceKubernetesClusterCreate(d *schema.ResourceData, m interface{}) erro
 	details, resp, err := client.ClustersApi.ClustersNamePost(*auth, createClusterCMD, name)
 	log.Printf("[DEBUG] Resource Kluster. CREATE. Returned cluster name: %s", details.Name)
 	if err != nil {
-		return fmt.Errorf("Resource Kubernetes Cluster. CREATE. Error occured while posting cluster: %s", err)
+		return fmt.Errorf("Resource Kubernetes Cluster. CREATE. Error occured while creating cluster: %s", err)
 	}
 
 	log.Printf("[DEBUG] Resource Kubernetes Cluster. CREATE. POST response is %s", resp.Status)
+
+	_, err = waitUntilClusterIsOperational(client, auth, details.Name)
+	if err != nil {
+		return fmt.Errorf("Resource Kubernetes Cluster. CREATE. Error occured while creating cluster: %s", err)
+	}
 	d.SetId(details.Name)
 	return resourceKubernetesClusterRead(d, m)
 }
@@ -102,4 +109,24 @@ func resourceKubernetesClusterDelete(d *schema.ResourceData, m interface{}) erro
 	d.SetId("")
 
 	return nil
+}
+
+func waitUntilClusterIsOperational(client swagger.APIClient, auth *context.Context, name string) (*swagger.K44SClusterDetailsDto, error) {
+	log.Printf("Resource Kubernetes Cluster. Waiting for cluster to be operational.")
+	var cluster swagger.K44SClusterDetailsDto
+	var status bool
+	var err error
+	var max_retries int8 = 10
+	for status != true {
+		time.Sleep(10 * time.Second)
+		cluster, _, err = client.ClustersApi.ClustersNameGet(*auth, name)
+		if err != nil {
+			if max_retries <= 0 {
+				return nil, err
+			}
+			max_retries--
+		}
+		status = cluster.Running
+	}
+	return &cluster, nil
 }

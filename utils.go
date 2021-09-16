@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/oktawave-code/odk"
-	"github.com/oktawave-code/oks-sdk"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/oktawave-code/odk"
+	swagger "github.com/oktawave-code/oks-sdk"
 )
 
 const (
@@ -16,28 +17,24 @@ const (
 	TICKET_STATUS__ERROR   int32 = 137
 )
 
-func evaluateTicket(client odk.APIClient, auth *context.Context, actionTicket odk.Ticket) (odk.Ticket, error) {
-	log.Printf("[INFO] Resource. Evaluate ticket function. Getting ticket")
-	ticketId := actionTicket.Id
-	apiTicket, _, err := client.TicketsApi.TicketsGet_1(*auth, ticketId, nil)
-	if err != nil {
-		return apiTicket, err
-	}
-	apiTicketStatusId := apiTicket.Status.Id
-	apiTicketEndDate := apiTicket.EndDate.String()
-	log.Printf("[INFO] Resource. Evaluate ticket function. Ticket end date: %s", apiTicketEndDate)
-	for (apiTicketStatusId != TICKET_STATUS__SUCCESS && apiTicketStatusId != TICKET_STATUS__ERROR) || apiTicketEndDate == "" {
-		apiTicketStatusId = apiTicket.Status.Id
-		apiTicketEndDate = apiTicket.EndDate.String()
-		log.Print("[INFO] Resource. Evaluate ticket function. Still waiting ticket.. Ticket progress: ", apiTicket.Progress)
+func evaluateTicket(client odk.APIClient, auth *context.Context, ticket odk.Ticket) (odk.Ticket, error) {
+	log.Printf("[INFO] Evaluating ticket.")
+	currentTicket := ticket
+	var max_retries = 5
+	var err error
+	for currentTicket.EndDate.IsZero() {
 		time.Sleep(10 * time.Second)
-		apiTicket, _, err = client.TicketsApi.TicketsGet_1(*auth, ticketId, nil)
+		currentTicket, _, err = client.TicketsApi.TicketsGet_1(*auth, currentTicket.Id, nil)
+		log.Println("[INFO] Current EndDate: ", currentTicket.EndDate, currentTicket.EndDate.IsZero())
 		if err != nil {
-			return apiTicket, err
+			if max_retries <= 0 {
+				return currentTicket, err
+			}
+			max_retries--
 		}
-		time.Sleep(10 * time.Second)
+		log.Print("[INFO] Resource. Evaluate ticket function. Still waiting ticket.. Ticket progress: ", currentTicket.Progress)
 	}
-	return apiTicket, nil
+	return currentTicket, nil
 }
 
 func retrieve_ids(ids []interface{}) []int32 {
