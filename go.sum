@@ -259,6 +259,8 @@ github.com/oktawave-code/oks-sdk v0.0.0-20190801092809-f7e5351c62c3 h1:GQr8/Jznm
 github.com/oktawave-code/oks-sdk v0.0.0-20190801092809-f7e5351c62c3/go.mod h1:OQxL3InqjEHgGhKJsTQMyMfFsp8XxavVNc//UljpCLA=
 github.com/oktawave-code/oks-sdk v1.1.0 h1:gdXR4JqzeZWjj3IERoz2TgJhzPweBg/sC5IKkjjN0Xo=
 github.com/oktawave-code/oks-sdk v1.1.0/go.mod h1:OQxL3InqjEHgGhKJsTQMyMfFsp8XxavVNc//UljpCLA=
+github.com/oktawave-code/oks-sdk v1.2.0 h1:M6mu7brRCI/LjVASmhUdx1LF0VxjSEo6ULAGmFwAAvU=
+github.com/oktawave-code/oks-sdk v1.2.0/go.mod h1:wHKEkZwu4Rnhp6a3YTywFmLgaB8UfArOZi46NoZDDuE=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.7.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/gomega v1.4.3/go.mod h1:ex+gbHU/CVuBBDIJjb2X0qEXbFg53c61hWP/1CpauHY=
