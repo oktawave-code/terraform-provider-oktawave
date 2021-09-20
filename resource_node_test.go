@@ -2,15 +2,17 @@ package main
 
 import (
 	"fmt"
-	"github.com/hashicorp/terraform/helper/resource"
-	"github.com/hashicorp/terraform/terraform"
-	"github.com/jarcoal/httpmock"
-	swagger "github.com/oktawave-code/oks-sdk"
 	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"testing"
+	"time"
+
+	"github.com/hashicorp/terraform/helper/resource"
+	"github.com/hashicorp/terraform/terraform"
+	"github.com/jarcoal/httpmock"
+	swagger "github.com/oktawave-code/oks-sdk"
 )
 
 func TestAccOktawave_Node_Basic(t *testing.T) {
@@ -70,10 +72,10 @@ func testAccCheckOktawaveNodeExists(name string, node *swagger.K44sInstance) res
 
 func testAccCheckOktawaveNodeAttributes_basic(node *swagger.K44sInstance) resource.TestCheckFunc {
 	return func(t *terraform.State) error {
-		if node.Type_.Id != float32(1268) {
+		if node.Type_.Id != float64(1268) {
 			return fmt.Errorf("Bad Node type id. Expected: 1268. Got: %v", strconv.Itoa(int(node.Type_.Id)))
 		}
-		if node.Subregion.Id != float32(4) {
+		if node.Subregion.Id != float64(4) {
 			return fmt.Errorf("Bad Node type id. Expected: 4. Got: %v", strconv.Itoa(int(node.Subregion.Id)))
 		}
 		return nil
@@ -120,15 +122,16 @@ func testAccCheckOktawaveNodeConfig_basic(token string, mockStatus string) strin
 		mockClusterGet(cluster_name, cluster_version)
 		mockClusterDelete(cluster_name, cluster_version)
 		mockNodePost(cluster_name, float32(node_subregion_id), float32(node_type_id))
-		mockGetTask(cluster_name, "CREATE", float32(node_subregion_id), float32(node_type_id))
-		mockGetNode(cluster_name, float32(node_subregion_id), float32(node_type_id))
+		// mockGetTask(cluster_name, "CREATE", float32(node_subregion_id), float32(node_type_id))
+		mockGetTicket(TICKET_STATUS__SUCCESS, "name", `https://api.oktawave.com/beta/tickets/1`)
+		mockGetNode(cluster_name, float64(node_subregion_id), float64(node_type_id))
 		mockNodeDelete(cluster_name, float32(node_subregion_id), float32(node_type_id))
 	}
 	return fmt.Sprintf(`
 provider "oktawave" {
   access_token="%s"
   
-  api_url = "https://api.oktawave.com/beta/"
+  api_url = "https://api.oktawave.com/beta"
 }
 
 resource "oktawave_kubernetes_cluster" "my_cluster" {
@@ -147,43 +150,61 @@ resource "oktawave_kubernetes_node" "my_node"{
 func mockNodePost(name string, subregionId float32, typeId float32) {
 	httpmock.RegisterResponder(http.MethodPost, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s", name),
 		func(req *http.Request) (*http.Response, error) {
-			return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44sTaskDto{
-				{TaskId: "1",
-					Operation:    "CREATE",
-					InstanceName: "cluster_node",
-					SubregionId:  subregionId,
-					TypeId:       typeId,
-					InstanceId:   1,
-					Status:       "Succeeded",
+			return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44SOperation{
+				swagger.K44SOperation{
+					Ticket: &swagger.IaasTicket{
+						Id:           float64(1),
+						CreationDate: time.Now(),
+						EndDate:      time.Now(),
+						Status: &swagger.IaasDictionaryEntry{
+							Id:    float64(TICKET_STATUS__SUCCESS),
+							Label: "",
+						},
+						OperationType: &(swagger.IaasDictionaryEntry{}),
+						ObjectId:      100,
+						ObjectName:    "test",
+						Progress:      100,
+					},
+					Error_: "",
 				},
 			})
 		})
 }
 
-func mockGetTask(cluster_name string, taskOperation string, subregionId float32, typeId float32) {
-	httpmock.RegisterResponder(http.MethodGet, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s/tasks/1", cluster_name),
-		func(req *http.Request) (*http.Response, error) {
-			return httpmock.NewJsonResponse(http.StatusOK, swagger.K44sTaskDto{
-				TaskId:       "1",
-				Operation:    taskOperation,
-				InstanceName: "cluster_node",
-				SubregionId:  subregionId,
-				TypeId:       typeId,
-				InstanceId:   1,
-				Status:       "Succeeded",
-			})
-		})
-}
+// func mockGetTask(cluster_name string, taskOperation string, subregionId float32, typeId float32) {
+// 	httpmock.RegisterResponder(http.MethodGet, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s/tasks/1", cluster_name),
+// 		func(req *http.Request) (*http.Response, error) {
+// 			return httpmock.NewJsonResponse(http.StatusOK, swagger.K44sTaskDto{
+// 				TaskId:       "1",
+// 				Operation:    taskOperation,
+// 				InstanceName: "cluster_node",
+// 				SubregionId:  subregionId,
+// 				TypeId:       typeId,
+// 				InstanceId:   1,
+// 				Status:       "Succeeded",
+// 			})
+// 		})
+// }
 
-func mockGetNode(name string, subregionId float32, typeId float32) {
+func mockGetNode(name string, subregionId float64, typeId float64) {
 	httpmock.RegisterResponder(http.MethodGet, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s", name),
 		func(req *http.Request) (*http.Response, error) {
 			return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44sInstance{
 				{
-					Id:        float32(1),
-					Name:      "cluster_node",
-					Subregion: &swagger.K44sInstanceSubregion{subregionId},
-					Type_:     &swagger.K44sInstanceType{typeId, ""},
+					Id:           1,
+					Name:         "name",
+					CreationDate: "",
+					Subregion: &swagger.K44sInstanceSubregion{
+						Id: subregionId,
+					},
+					Type_: &swagger.K44sInstanceType{
+						Id: typeId,
+					},
+					Status:             &swagger.K44sInstanceStatus{},
+					IpAddress:          "1.1.1.1",
+					TotalDisksCapacity: float64(10),
+					CpuNumber:          float64(10),
+					RamMb:              float64(10),
 				},
 			})
 		})
@@ -192,19 +213,28 @@ func mockGetNode(name string, subregionId float32, typeId float32) {
 func mockNodeDelete(cluster_name string, subregionId float32, typeId float32) {
 	httpmock.RegisterResponder(http.MethodDelete, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s", cluster_name),
 		func(req *http.Request) (*http.Response, error) {
-			mockGetTask(cluster_name, "DELETE", subregionId, typeId)
+			// mockGetTask(cluster_name, "DELETE", subregionId, typeId)
+			mockGetTicket(TICKET_STATUS__SUCCESS, "name", `https://api.oktawave.com/beta/tickets/1`)
 			httpmock.RegisterResponder(http.MethodGet, fmt.Sprintf("https://k44s-api.i.k44s.oktawave.com/clusters/instances/%s", cluster_name),
 				func(req *http.Request) (*http.Response, error) {
 					return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44sInstance{})
 				})
-			return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44sTaskDto{
-				{TaskId: "1",
-					Operation:    "DELETE",
-					InstanceName: "cluster_node",
-					SubregionId:  subregionId,
-					TypeId:       typeId,
-					InstanceId:   1,
-					Status:       "Succeeded",
+			return httpmock.NewJsonResponse(http.StatusOK, []swagger.K44SOperation{
+				{
+					Ticket: &swagger.IaasTicket{
+						Id:           1,
+						CreationDate: time.Now(),
+						EndDate:      time.Now(),
+						Status: &swagger.IaasDictionaryEntry{
+							Id:    float64(TICKET_STATUS__SUCCESS),
+							Label: "",
+						},
+						OperationType: &(swagger.IaasDictionaryEntry{}),
+						ObjectId:      100,
+						ObjectName:    "test",
+						Progress:      100,
+					},
+					Error_: "",
 				},
 			})
 		})
