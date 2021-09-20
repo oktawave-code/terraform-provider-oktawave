@@ -65,7 +65,7 @@ func resourceNodeCreate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource Node. CREATE. Error creating node: %s", err)
 	}
 
-	if len(operations[0].Error_) > 0 {
+	if len(operations) < 1 || len(operations[0].Error_) > 0 {
 		return fmt.Errorf("Resource Node. CREATE. Error creating node: %s", operations[0].Error_)
 	}
 
