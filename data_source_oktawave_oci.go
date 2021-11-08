@@ -37,7 +37,9 @@ func dataSourceOci() *schema.Resource {
 func dataSourceOciRead(d *schema.ResourceData, m interface{}) error {
 	client := m.(*ClientConfig).oktaClient()
 	auth := m.(*ClientConfig).ctx
-	instances, resp, err := client.OCIApi.InstancesGet(*auth, nil)
+	instances, resp, err := client.OCIApi.InstancesGet(*auth, map[string]interface{}{
+		"pageSize": int32(0),
+	})
 	if err != nil {
 		if resp != nil && resp.StatusCode == http.StatusNotFound {
 			return fmt.Errorf("Data Source OCI. READ. No resources found")
