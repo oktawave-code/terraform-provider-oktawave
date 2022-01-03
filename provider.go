@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"github.com/hashicorp/terraform/helper/schema"
-	"github.com/hashicorp/terraform/terraform"
+	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/terraform"
 	"github.com/oktawave-code/odk"
 	"github.com/oktawave-code/oks-sdk"
 	"log"
@@ -32,8 +32,8 @@ func Provider() terraform.ResourceProvider {
 			"oktawave_kubernetes_cluster": resourceKubernetesCluster(),
 			"oktawave_kubernetes_node":    resourceNode(),
 		},
-		DataSourcesMap: map[string]*schema.Resource {
-			"oktawave_oci":								 dataSourceOci(),
+		DataSourcesMap: map[string]*schema.Resource{
+			"oktawave_oci": dataSourceOci(),
 		},
 
 		ConfigureFunc: providerConfigure,
