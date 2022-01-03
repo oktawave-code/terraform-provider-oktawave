@@ -218,8 +218,6 @@ func resourceOvsUpdate(d *schema.ResourceData, m interface{}) error {
 	auth := m.(*ClientConfig).ctx
 	diskId, _ := strconv.Atoi(d.Id())
 
-	d.Partial(true)
-
 	newConnections := d.Get("connections_with_instanceids")
 	connectionsId_Int32 := retrieve_ids(newConnections.(*schema.Set).List())
 	updateDiskCmd := odk.UpdateDiskCommand{
@@ -235,7 +233,6 @@ func resourceOvsUpdate(d *schema.ResourceData, m interface{}) error {
 		if err := updateDisk(client, auth, int32(diskId), updateDiskCmd); err != nil {
 			return err
 		}
-		d.SetPartial("subregion_id")
 		updateDiskCmd.SubregionId = int32(newSubregion.(int))
 		if err := updateDisk(client, auth, int32(diskId), updateDiskCmd); err != nil {
 			return err
@@ -247,12 +244,6 @@ func resourceOvsUpdate(d *schema.ResourceData, m interface{}) error {
 	if err := updateDisk(client, auth, int32(diskId), updateDiskCmd); err != nil {
 		return err
 	}
-
-	d.SetPartial("connections_with_instanceids")
-	d.SetPartial("disk_name")
-	d.SetPartial("space_capacity")
-	d.SetPartial("tier_id")
-	d.Partial(false)
 	return resourceOvsRead(d, m)
 }
 func resourceOvsDelete(d *schema.ResourceData, m interface{}) error {

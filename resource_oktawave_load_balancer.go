@@ -185,8 +185,6 @@ func resourceLoadBalancerUpdate(d *schema.ResourceData, m interface{}) error {
 	groupId, _ := d.GetChange("group_id")
 	groupId_int32 := int32(groupId.(int))
 
-	d.Partial(true)
-
 	log.Printf("[DEBUG] Resource Load Balancer. UPDATE. Checking attributes update state..")
 	updateLBCmd := odk.SetLoadBalancerCommand{}
 
@@ -262,18 +260,6 @@ func resourceLoadBalancerUpdate(d *schema.ResourceData, m interface{}) error {
 		}
 		return fmt.Errorf("Resource Load Balancer. UPDATE. Error occured while updating load balancer. %s", err)
 	}
-
-	d.SetPartial("ssl_enabled")
-	d.SetPartial("service_type_id")
-	d.SetPartial("port_number")
-	d.SetPartial("target_port_number")
-	d.SetPartial("session_persistence_type_id")
-	d.SetPartial("load_balancer_algorithm_id")
-	d.SetPartial("ip_version_id")
-	d.SetPartial("health_check_enabled")
-	d.SetPartial("common_persistence_for_http_and_https_enabled")
-
-	d.Partial(false)
 	return resourceLoadBalancerRead(d, m)
 }
 

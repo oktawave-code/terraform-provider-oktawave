@@ -164,7 +164,6 @@ func resourceGroupUpdate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource Group. UPDATE. Invalid group id. %s", err)
 	}
 	log.Printf("[DEBUG] Resource Group. UPDATE. Check attribute update states")
-	d.Partial(true)
 	if d.HasChange("group_name") || d.HasChange("affinity_rule_type_id") {
 		_, newGroupName := d.GetChange("group_name")
 		_, newRuleTypeId := d.GetChange("affinity_rule_type_id")
@@ -180,8 +179,6 @@ func resourceGroupUpdate(d *schema.ResourceData, m interface{}) error {
 			}
 			return fmt.Errorf("Resource Group. UPDATE. Error occured while updating group. %s", err)
 		}
-		d.SetPartial("group_name")
-		d.SetPartial("affinity_rule_type_id")
 	}
 
 	if d.HasChange("group_instance_ip_ids") {
@@ -196,7 +193,6 @@ func resourceGroupUpdate(d *schema.ResourceData, m interface{}) error {
 		if err != nil {
 			return fmt.Errorf("ERROR Resource Group. UPDATE. instance assignments failed. Error: %s", err)
 		}
-		d.SetPartial("group_instance_ip_ids")
 	}
 
 	return resourceGroupRead(d, m)

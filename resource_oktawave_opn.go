@@ -127,7 +127,6 @@ func resourceOpnUpdate(d *schema.ResourceData, m interface{}) error {
 	if err != nil {
 		return fmt.Errorf("Resource OPN. UPDATE. Invalid OPN id: %v", err)
 	}
-	d.Partial(true)
 	if d.HasChange("opn_name") {
 		log.Printf("Resource OPN. UPDATE. Opn name attribute change detected. Updating..")
 		opnName := d.Get("opn_name").(string)
@@ -142,10 +141,8 @@ func resourceOpnUpdate(d *schema.ResourceData, m interface{}) error {
 			}
 			return fmt.Errorf("Resource OPN. UPDATE. Error occured while updating opn name: %s", err)
 		}
-		d.SetPartial("opn_name")
 	}
 
-	d.Partial(false)
 	return resourceOpnRead(d, m)
 }
 

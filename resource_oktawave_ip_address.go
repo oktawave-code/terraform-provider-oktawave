@@ -235,7 +235,6 @@ func resourceIpAddressUpdate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource IpAddress. UPDATE. Invalid IpAddress id: %v", err)
 	}
 
-	d.Partial(true)
 	updateIpCmd := odk.UpdateIpCommand{
 		SetStatic: true,
 		Comment:   d.Get("comment").(string),
@@ -283,8 +282,6 @@ func resourceIpAddressUpdate(d *schema.ResourceData, m interface{}) error {
 				log.Printf("[INFO] Resource IpAddress. UPDATE. Ip attach. remote state was updated successfully")
 			}
 		}
-
-		d.SetPartial("instance_id")
 	}
 
 	if d.HasChange("comment") {
@@ -318,12 +315,6 @@ func resourceIpAddressUpdate(d *schema.ResourceData, m interface{}) error {
 			}
 		}
 	}
-
-	d.SetPartial("comment")
-	d.SetPartial("restore_rev_dns")
-	d.SetPartial("restore_rev_dns_v6")
-
-	d.Partial(false)
 	return resourceIpAddressRead(d, m)
 }
 

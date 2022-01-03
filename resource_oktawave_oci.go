@@ -348,8 +348,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource OCI. UPDATE. Invalid OCI id: %v", err)
 	}
 
-	d.Partial(true)
-
 	log.Printf("[INFO] Resource OCI. Checking resource update status")
 	if d.HasChange("instance_name") {
 		log.Printf("[DEBUG] Resource OCI. UPDATE. Instance name. Mentioned change in config file")
@@ -374,7 +372,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 		//succeed case
 		case TICKET_STATUS__SUCCESS:
 			log.Printf("[INFO] Resource OCI. UPDATE. Instance name. Real state was updated successfully")
-			d.SetPartial("instance_name")
 		}
 	}
 	//not supported by now
@@ -414,7 +411,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 		//succeed case
 		case TICKET_STATUS__SUCCESS:
 			log.Printf("[INFO] Resource OCI. UPDATE. Type id. Real state was updated successfully")
-			d.SetPartial("type_id")
 		}
 	}
 	if d.HasChange("init_ip_address_id") {
@@ -452,7 +448,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 				log.Printf("[INFO] Resource OCI. UPDATE. Ip attaching. remote state was updated successfully")
 			}
 		}
-		d.SetPartial("init_ip_address_id")
 	}
 
 	disk, resp, err := client.OVSApi.DisksGet(*auth, int32(initDiskId), nil)
@@ -481,8 +476,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 		if err := attachInstanceToOpns(client, auth, opnIdsToAttach, int32(instanceId)); err != nil {
 			return fmt.Errorf("Resource OCI. UPDATE. %s", err)
 		}
-
-		d.SetPartial("opn_ids")
 	}
 
 	connectionIdList := getConnectionsInstancesIds_int32(disk.Connections)
@@ -519,9 +512,6 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 	case TICKET_STATUS__ERROR:
 		apiTicketStatusId := int(respTicket.Status.Id)
 		return fmt.Errorf("Resource OCI. UPDATE. Unable to update disk class and/or size. Ticket status: %s", strconv.Itoa(apiTicketStatusId))
-	case TICKET_STATUS__SUCCESS:
-		d.SetPartial("init_disk_size")
-		d.SetPartial("disk_class")
 	}
 
 	if d.HasChange("ip_address_ids") {
@@ -544,9 +534,7 @@ func resourceOciUpdate(d *schema.ResourceData, m interface{}) error {
 			return fmt.Errorf("Resource OCI. UPDATE. %s", err)
 		}
 
-		d.SetPartial("ip_address_ids")
 	}
-	d.Partial(false)
 	return resourceOciRead(d, m)
 }
 
