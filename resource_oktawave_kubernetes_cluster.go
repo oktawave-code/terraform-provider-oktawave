@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	swagger "github.com/oktawave-code/oks-sdk"
 )
 
