@@ -1,6 +1,6 @@
 language: go
 go:
-- 1.12.7
+- 1.17.6
 env:
 - TF_ACC=1 MOCK_STATUS=1 CGO_ENABLED=0
 before_install:

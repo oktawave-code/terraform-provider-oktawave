@@ -1,6 +1,6 @@
 module terraform-provider-oktawave
 
-go 1.12
+go 1.17
 
 require (
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.3

@@ -18,22 +18,30 @@ const (
 )
 
 func evaluateTicket(client odk.APIClient, auth *context.Context, ticket odk.Ticket) (odk.Ticket, error) {
-	log.Printf("[INFO] Evaluating ticket.")
+	log.Printf("[DEBUG] Starting ticket polling. Ticket id: [%d], Target object name [%s].", ticket.Id, ticket.ObjectName)
 	currentTicket := ticket
 	var max_retries = 5
-	var err error
+
 	for currentTicket.EndDate.IsZero() {
 		time.Sleep(10 * time.Second)
-		currentTicket, _, err = client.TicketsApi.TicketsGet_1(*auth, currentTicket.Id, nil)
-		log.Println("[INFO] Current EndDate: ", currentTicket.EndDate, currentTicket.EndDate.IsZero())
+		returnedTicket, resp, err := client.TicketsApi.TicketsGet_1(*auth, currentTicket.Id, nil)
+		log.Printf("[TRACE] Ticket API HTTP response. Ticket Id: [%d], HTTP response status: [%d]", currentTicket.Id, resp.StatusCode)
+
 		if err != nil {
 			if max_retries <= 0 {
+				log.Printf("[ERROR] Ticket polling failed. Server did not respond too many times. Tickdt Id: [%d], Target object name: [%s].", currentTicket.Id, currentTicket.ObjectName)
 				return currentTicket, err
 			}
+			log.Printf("[DEBUG] Ticket polling - api request failed. Will retry in a moment. Tickdt Id: [%d], Target object name: [%s].", currentTicket.Id, currentTicket.ObjectName)
 			max_retries--
 		}
-		log.Print("[INFO] Resource. Evaluate ticket function. Still waiting ticket.. Ticket progress: ", currentTicket.Progress)
+
+		if resp.Body != nil {
+			currentTicket = returnedTicket
+		}
+		log.Printf("[DEBUG] Ticket polling still in progress. Ticket Id: [%d], Target object name: [%s], EndDate: [%s], Progress: [%d]", currentTicket.Id, currentTicket.ObjectName, currentTicket.EndDate, currentTicket.Progress)
 	}
+	log.Printf("[DEBUG] Ticket polling finished. Ticket Id: [%d], Status id: [%d], Target object name: [%s], EndDate: [%s], Progress: [%d]", currentTicket.Id, currentTicket.Status.Id, currentTicket.ObjectName, currentTicket.EndDate, currentTicket.Progress)
 	return currentTicket, nil
 }
 
@@ -102,14 +110,4 @@ func retrieveNodeById(nodes []swagger.K44sInstance, nodeId int) (swagger.K44sIns
 	}
 
 	return swagger.K44sInstance{}, fmt.Errorf("Node by id %s was not found", strconv.Itoa(nodeId))
-}
-
-func retrieveNodeByName(nodes []swagger.K44sInstance, nodeName string) (swagger.K44sInstance, error) {
-	for _, node := range nodes {
-		if nodeName == node.Name {
-			return node, nil
-		}
-	}
-
-	return swagger.K44sInstance{}, fmt.Errorf("Node by name %s was not found", nodeName)
 }

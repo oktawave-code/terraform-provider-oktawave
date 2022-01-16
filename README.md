@@ -1,14 +1,18 @@
 # Terraform Oktawave Provider
 
+### This version is under development as should be considered as unstable.
+
 Terraform provider for Oktawave Cloud.
+
+# Requirements
+
+Terraform version 1.0 or higher.
 
 # How to install and use:
 1. Compile project using 
 ```bash
 go build -o terraform-provider-oktawave.exe
 ```
-
- 
  
 2. Create config file witf .tf file extension.
 

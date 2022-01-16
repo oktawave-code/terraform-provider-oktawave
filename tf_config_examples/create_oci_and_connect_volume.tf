@@ -1,3 +1,12 @@
+terraform {
+    required_providers {
+        oktawave = {
+            version = "~> 1.0.0"
+            source  = "oktawave.com/iaac/oktawave"
+        }
+    }
+}
+
 provider "oktawave" {
    access_token="your-access-token"
    api_url = "https://api.oktawave.com/beta"
