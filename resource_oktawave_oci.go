@@ -247,6 +247,21 @@ func resourceOciRead(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource OCI. READ. Error retrieving instance: %s", err)
 	}
 
+    var initDisk odk.Disk
+    initDiskFound := false
+    for _, oneDisk := range disk.Items {
+        for _, diskConn := range oneDisk.Connections {
+            if diskConn.Instance.Id == instance.Id && diskConn.IsSystemDisk == true {
+                initDisk = oneDisk
+                initDiskFound = true
+                break
+            }
+        }
+    }
+    if initDiskFound != true {
+		return fmt.Errorf("Resource OCI. READ. Error init disk not found")
+    }
+
 	opnMacMap, err := getOpnMacMap(client, *auth, int32(id))
 	if err != nil {
 		return fmt.Errorf("Resource OCI. READ. %s", err)
@@ -277,12 +292,12 @@ func resourceOciRead(d *schema.ResourceData, m interface{}) error {
 		return fmt.Errorf("Resource OCI. READ. Error: can't retrieve instance freemium option")
 	}
 
-	if err := d.Set("init_disk_id", int(disk.Items[0].Id)); err != nil {
+	if err := d.Set("init_disk_id", int(initDisk.Id)); err != nil {
 		return fmt.Errorf("Resource OCI. CREATE. Error: can't retrieve instance initial disk")
 	}
 
 	log.Printf("[DEBUG] Resource OCI. READ. Trying to retrieve instance disks capacitu")
-	if err := d.Set("init_disk_size", int(disk.Items[0].SpaceCapacity)); err != nil {
+	if err := d.Set("init_disk_size", int(initDisk.SpaceCapacity)); err != nil {
 		return fmt.Errorf("Resource OCI. READ. Error: can't retrieve instance initial disk size")
 	}
 
@@ -312,7 +327,7 @@ func resourceOciRead(d *schema.ResourceData, m interface{}) error {
 	}
 
 	log.Printf("[DEBUG] Resource OCI. READ. Trying to retrieve instance initial disk class")
-	if err := d.Set("disk_class", disk.Items[0].Tier.Id); err != nil {
+	if err := d.Set("disk_class", initDisk.Tier.Id); err != nil {
 		return fmt.Errorf("Resource OCI. READ. Error: can't retrieve instance initial disk class")
 	}
 
