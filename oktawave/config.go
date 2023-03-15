@@ -2,6 +2,7 @@ package oktawave
 
 import (
 	"context"
+
 	"github.com/oktawave-code/odk"
 	oks "github.com/oktawave-code/oks-sdk"
 )
@@ -112,14 +113,6 @@ type DCConfig struct {
 }
 
 var dcConfigs = map[string]DCConfig{
-	"DC1_DEV": {
-		odkApiUrl: "https://pl1-api.dev.oktawave.com/services",
-		oksApiUrl: "https://k44s-api-devenv.i.k44sdev.oktawave.com",
-	},
-	"DC2_DEV": {
-		odkApiUrl: "https://pl2-api.dev.oktawave.com/services",
-		oksApiUrl: "https://k44s-api-devenv.i.k44sdev.oktawave.com",
-	},
 	"DC1": {
 		odkApiUrl: "https://pl1-api.oktawave.com/services",
 		oksApiUrl: "https://k44s-api.i.k44s.oktawave.com",

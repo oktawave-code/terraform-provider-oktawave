@@ -26,26 +26,14 @@ go test -v ./...
 OKTAWAVE_ACCESS_TOKEN={access_token} OKTAWAVE_DC={DC1|DC2} terraform {terraform commands here}
 ```
 
-# How to setup local provider (on linux):
-
-* Create a folder ~/.terraform.d/plugins/registry.terraform.io/oktawave/oktawave/0.1.0/linux_amd64/
-* Make two symbolic links from files terraform-provider-oktawave_v0.1.0 and terraform-provider-oktawave to terraform-provider-oktawave in your golang output binary
-* Create a file ~/.terraformrc with following content:
-
-```
-
-
-```
-
-
 # Env vars supported by this plugin
 
-OKTAWAVE_ACCESS_TOKEN (access_token) - needed to authorize to Oktawave apis
-OKTAWAVE_DC (dc) - data center selector: "DC1" or "DC2"
-OKTAWAVE_ODK_API_URL (odk_api_url) - manual api url override
-OKTAWAVE_ODK_API_SKIP_TLS (odk_api_skip_tls) - manual disabling of certificate check
-OKTAWAVE_OKS_API_URL (oks_api_url) - manual api url override
-OKTAWAVE_OKS_API_SKIP_TLS (oks_api_skip_tls) - manual disabling of certificate check
+- OKTAWAVE_ACCESS_TOKEN (access_token) - needed to authorize to Oktawave apis
+- OKTAWAVE_DC (dc) - data center selector: "DC1" or "DC2"
+- OKTAWAVE_ODK_API_URL (odk_api_url) - manual api url override
+- OKTAWAVE_ODK_API_SKIP_TLS (odk_api_skip_tls) - manual disabling of certificate check
+- OKTAWAVE_OKS_API_URL (oks_api_url) - manual api url override
+- OKTAWAVE_OKS_API_SKIP_TLS (oks_api_skip_tls) - manual disabling of certificate check
 
 # You can generate access_token using curl:
 ```shell
