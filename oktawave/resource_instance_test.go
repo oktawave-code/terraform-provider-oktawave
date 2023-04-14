@@ -661,6 +661,61 @@ resource "oktawave_instance" "test-instance1" {
 	})
 }
 
+func TestAccOktawaveInstance_DestroyInstanceWithMultipleDisks(t *testing.T) {
+	var instance odk.Instance
+	instanceConfig := `
+resource "oktawave_disk" "test-disk1" {
+	name = "disk1"
+	tier_id = 48
+	subregion_id = 1
+	capacity = 5
+}
+
+resource "oktawave_disk" "test-disk2" {
+	name = "disk2"
+	tier_id = 48
+	subregion_id = 1
+	capacity = 5
+}
+
+resource "oktawave_ip" "test-ip1" {
+	subregion_id = 1
+}
+
+resource "oktawave_instance" "test-instance1" {
+	depends_on = [oktawave_disk.test-disk1, oktawave_disk.test-disk2, oktawave_ip.test-ip1]
+	name = "test-instance1"
+	subregion_id = 1
+	system_disk_class_id = 48
+	template_id = 1021
+	type_id = 1047
+	disks_ids = [
+		oktawave_disk.test-disk1.id,
+		oktawave_disk.test-disk2.id
+	]
+	public_ips = [oktawave_ip.test-ip1.id]
+}
+`
+
+	resource.ParallelTest(t, resource.TestCase{
+		PreCheck:     func() { testAccPreCheck(t) },
+		Providers:    testAccProviders,
+		CheckDestroy: testAccCheckInstanceDatasourceDestroy,
+		Steps: []resource.TestStep{
+			{
+				Config: instanceConfig,
+				Check: resource.ComposeAggregateTestCheckFunc(
+					testAccCheckInstanceExists("oktawave_instance.test-instance1", &instance),
+					// testAccCheckInstanceAttributes(&instance),
+					resource.TestCheckResourceAttr("oktawave_instance.test-instance1", "disks_ids.#", "2"),
+					resource.TestCheckTypeSetElemAttrPair("oktawave_instance.test-instance1", "disks_ids.*", "oktawave_disk.test-disk1", "id"),
+					resource.TestCheckTypeSetElemAttrPair("oktawave_instance.test-instance1", "disks_ids.*", "oktawave_disk.test-disk2", "id"),
+				),
+			},
+		},
+	})
+}
+
 // Test instance behaviour after template creation
 func TestAccOktawaveInstance_ConvertToTemplate(t *testing.T) {
 	var instance odk.Instance
