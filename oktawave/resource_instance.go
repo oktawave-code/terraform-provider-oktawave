@@ -605,6 +605,17 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, m inter
 	}
 	// End of workaround
 
+	// detach disks
+	if disksIdSet, disksIsSet := d.GetOk("disks_ids"); disksIsSet {
+		disksIds := castToInt32(disksIdSet.(*schema.Set).List())
+		for _, diskId := range disksIds {
+			err := detachDiskFromInstance(client, auth, int32(diskId), (int32)(instanceId))
+			if err != nil {
+				return diag.Errorf("Detaching disks failed. %s", err)
+			}
+		}
+	}
+
 	tflog.Debug(ctx, "calling ODK OCIApi.InstancesDelete")
 	deleteTicket, _, err := client.OCIApi.InstancesDelete(*auth, (int32)(instanceId), nil)
 	if err != nil {
