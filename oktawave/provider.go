@@ -82,6 +82,8 @@ func Provider() *schema.Provider {
 			"oktawave_oks_cluster":    dataSourceOksCluster(),
 			"oktawave_oks_clusters":   dataSourceOksClusters(),
 			"oktawave_oks_node":       dataSourceOksNode(),
+			"oktawave_subregions":     dataSourceSubregions(),
+			"oktawave_instance_types": dataSourceInstanceTypes(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
