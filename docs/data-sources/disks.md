@@ -21,8 +21,8 @@ description: |-
 
 ### Read-Only
 
-- `disks` (List of Object) (see [below for nested schema](#nestedatt--disks))
 - `id` (String) The ID of this resource.
+- `items` (List of Object) (see [below for nested schema](#nestedatt--items))
 
 <a id="nestedblock--filter"></a>
 ### Nested Schema for `filter`
@@ -33,13 +33,13 @@ Required:
 - `values` (List of String)
 
 
-<a id="nestedatt--disks"></a>
-### Nested Schema for `disks`
+<a id="nestedatt--items"></a>
+### Nested Schema for `items`
 
 Read-Only:
 
 - `capacity` (Number)
-- `connections` (Set of Object) (see [below for nested schema](#nestedobjatt--disks--connections))
+- `connections` (Set of Object) (see [below for nested schema](#nestedobjatt--items--connections))
 - `creation_date` (String)
 - `creation_user_id` (Number)
 - `id` (Number)
@@ -54,8 +54,8 @@ Read-Only:
 - `tier_id` (Number)
 - `tier_label` (String)
 
-<a id="nestedobjatt--disks--connections"></a>
-### Nested Schema for `disks.connections`
+<a id="nestedobjatt--items--connections"></a>
+### Nested Schema for `items.connections`
 
 Read-Only:
 

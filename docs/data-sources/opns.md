@@ -22,7 +22,7 @@ description: |-
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `opns` (List of Object) (see [below for nested schema](#nestedatt--opns))
+- `items` (List of Object) (see [below for nested schema](#nestedatt--items))
 
 <a id="nestedblock--filter"></a>
 ### Nested Schema for `filter`
@@ -33,8 +33,8 @@ Required:
 - `values` (List of String)
 
 
-<a id="nestedatt--opns"></a>
-### Nested Schema for `opns`
+<a id="nestedatt--items"></a>
+### Nested Schema for `items`
 
 Read-Only:
 
@@ -43,10 +43,10 @@ Read-Only:
 - `id` (Number)
 - `last_change_date` (String)
 - `name` (String)
-- `private_ips` (Set of Object) (see [below for nested schema](#nestedobjatt--opns--private_ips))
+- `private_ips` (Set of Object) (see [below for nested schema](#nestedobjatt--items--private_ips))
 
-<a id="nestedobjatt--opns--private_ips"></a>
-### Nested Schema for `opns.private_ips`
+<a id="nestedobjatt--items--private_ips"></a>
+### Nested Schema for `items.private_ips`
 
 Read-Only:
 

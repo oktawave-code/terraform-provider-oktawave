@@ -24,7 +24,6 @@ Oktawave Volume Storage(OVS) service provides block storage disks.
 ### Optional
 
 - `capacity` (Number) Disk size in GB. At least 5 GB. Disk capacity can be only scaled up.
-- `instance_ids` (Set of Number) List of instances ids that are connected to this disk.
 - `shared_disk_type_id` (Number, Deprecated)
 - `timeouts` (Block, Optional) (see [below for nested schema](#nestedblock--timeouts))
 
@@ -33,6 +32,7 @@ Oktawave Volume Storage(OVS) service provides block storage disks.
 - `creation_date` (String) Date of disk creation.
 - `creation_user_id` (Number) Id of user who created disk.
 - `id` (String) The ID of this resource.
+- `instance_ids` (Set of Number) List of instances ids that are connected to this disk.
 - `is_freemium` (Boolean, Deprecated)
 - `is_locked` (Boolean) Tells if disk is currently locked.
 - `is_shared` (Boolean, Deprecated)

@@ -17,19 +17,21 @@ description: |-
 
 ### Required
 
-- `name` (String)
+- `cluster_id` (String)
 
 ### Read-Only
 
-- `cluster_id` (String) This is the same as cluster name
 - `cpu_number` (Number)
 - `creation_date` (String)
-- `id` (String) The ID of this resource.
+- `id` (Number) The ID of this resource.
 - `ip_address` (String)
+- `name` (String)
 - `ram_mb` (Number)
 - `status_id` (Number) Value from dictionary #27
+- `status_lavel` (String) Value from dictionary #27
 - `subregion_id` (Number) ID from subregions resource
 - `total_disks_capacity` (Number)
 - `type_id` (Number) Value from dictionary #12
+- `type_label` (String) Value from dictionary #12
 
 

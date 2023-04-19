@@ -26,6 +26,7 @@ Oktawave Cloud Instance(OCI) is a virtual machine, base building block of cloud 
 ### Optional
 
 - `authorization_method_id` (Number) Two authorization methods are available - login/password or ssh-keys. Value from dictionary #159
+- `converted_to_template_id` (Number) Id of the template this instance was converted to. When instance is converted to template it ceases to exist and this attribute is set. After this, instance state will not be synchronized to prevent instance recreation. Instance definition may be safely removed from definition and state.
 - `disks_ids` (Set of Number) Ids of connected disks.
 - `init_script` (String) Must be base64 encoded. This script will be invoked during instance initialization.
 - `opn_ids` (Set of Number) List of OPNs this instance is in.
