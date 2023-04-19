@@ -186,8 +186,6 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, m i
 		return diag.Errorf("Invalid load balancer id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	updateCmd := odk.SetLoadBalancerCommand{
 		SslEnabled:                              d.Get("ssl_enabled").(bool),
 		ServiceType:                             int32(d.Get("service_type_id").(int)),
@@ -217,7 +215,6 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, m i
 		return diag.Errorf("ODK Error in OCIGroupsApi.LoadBalancersUpdate. %s", err)
 	}
 
-	d.Partial(false)
 	return resourceLoadBalancerRead(ctx, d, m)
 }
 

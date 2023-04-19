@@ -166,8 +166,6 @@ func resourceDiskUpdate(ctx context.Context, d *schema.ResourceData, m interface
 		return diag.Errorf("Invalid OVS id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	updateDiskCmd := odk.UpdateDiskCommand{
 		DiskName:      d.Get("name").(string),
 		SpaceCapacity: int32(d.Get("capacity").(int)),
@@ -194,7 +192,6 @@ func resourceDiskUpdate(ctx context.Context, d *schema.ResourceData, m interface
 		return err
 	}
 
-	d.Partial(false)
 	return resourceDiskRead(ctx, d, m)
 }
 

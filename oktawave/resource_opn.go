@@ -128,8 +128,6 @@ func resourceOpnUpdate(ctx context.Context, d *schema.ResourceData, m interface{
 		return diag.Errorf("Invalid OPN id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	if d.HasChange("name") {
 		tflog.Info(ctx, "opn name change detected")
 		opnName := d.Get("name").(string)
@@ -143,7 +141,6 @@ func resourceOpnUpdate(ctx context.Context, d *schema.ResourceData, m interface{
 		}
 	}
 
-	d.Partial(false)
 	return resourceOpnRead(ctx, d, m)
 }
 
