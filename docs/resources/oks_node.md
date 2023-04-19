@@ -17,7 +17,7 @@ description: |-
 
 ### Required
 
-- `cluster_id` (String) This is the same as cluster name
+- `cluster_id` (String) Cluster id.
 - `subregion_id` (Number) ID from subregions resource
 - `type_id` (Number) Value from dictionary #12
 

@@ -22,7 +22,7 @@ description: |-
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `oks_clusters` (List of Object) (see [below for nested schema](#nestedatt--oks_clusters))
+- `items` (List of Object) (see [below for nested schema](#nestedatt--items))
 
 <a id="nestedblock--filter"></a>
 ### Nested Schema for `filter`
@@ -33,8 +33,8 @@ Required:
 - `values` (List of String)
 
 
-<a id="nestedatt--oks_clusters"></a>
-### Nested Schema for `oks_clusters`
+<a id="nestedatt--items"></a>
+### Nested Schema for `items`
 
 Read-Only:
 

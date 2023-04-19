@@ -22,7 +22,7 @@ description: |-
 ### Read-Only
 
 - `id` (String) The ID of this resource.
-- `load_balancers` (List of Object) (see [below for nested schema](#nestedatt--load_balancers))
+- `items` (List of Object) (see [below for nested schema](#nestedatt--items))
 
 <a id="nestedblock--filter"></a>
 ### Nested Schema for `filter`
@@ -33,8 +33,8 @@ Required:
 - `values` (List of String)
 
 
-<a id="nestedatt--load_balancers"></a>
-### Nested Schema for `load_balancers`
+<a id="nestedatt--items"></a>
+### Nested Schema for `items`
 
 Read-Only:
 
