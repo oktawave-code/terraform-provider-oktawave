@@ -195,8 +195,6 @@ func resourceIpAddressUpdate(ctx context.Context, d *schema.ResourceData, m inte
 		return diag.Errorf("Invalid Ip id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	updateCommand := odk.UpdateIpCommand{}
 	updateNeeded := false
 	if d.HasChange("comment") {
@@ -237,7 +235,6 @@ func resourceIpAddressUpdate(ctx context.Context, d *schema.ResourceData, m inte
 		}
 	}
 
-	d.Partial(false)
 	return resourceIpAddressRead(ctx, d, m)
 }
 

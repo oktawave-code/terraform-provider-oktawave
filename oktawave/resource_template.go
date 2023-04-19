@@ -213,8 +213,6 @@ func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, m inter
 		return diag.Errorf("Invalid template id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	updateCommand := odk.UpdateTemplateCommand{}
 	updateNeeded := false
 	if d.HasChange("name") {
@@ -242,7 +240,6 @@ func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, m inter
 		}
 	}
 
-	d.Partial(false)
 	return resourceTemplateRead(ctx, d, m)
 }
 

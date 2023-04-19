@@ -401,8 +401,6 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, m inter
 	}
 	// End of workaround
 
-	d.Partial(true)
-
 	if d.HasChange("name") {
 		tflog.Info(ctx, "instance name change detected")
 		newName := d.Get("name").(string)
@@ -577,7 +575,6 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, m inter
 		}
 	}
 
-	d.Partial(false)
 	return resourceInstanceRead(ctx, d, m)
 }
 

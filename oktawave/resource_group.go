@@ -156,8 +156,6 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 		return diag.Errorf("Invalid group id: %v %s", d.Id(), err)
 	}
 
-	d.Partial(true)
-
 	updateCommand := odk.CreateGroupCommand{}
 	updateNeeded := false
 	if d.HasChange("name") {
@@ -188,7 +186,6 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 		}
 	}
 
-	d.Partial(false)
 	return resourceGroupRead(ctx, d, m)
 }
 
