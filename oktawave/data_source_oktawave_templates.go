@@ -24,7 +24,7 @@ func getTemplatesList(config *ClientConfig) ([]odk.Template, error) {
 
 	params := map[string]interface{}{
 		"pageSize": int32(math.MaxInt16),
-		// "orderBy":  "Id",
+		"orderBy":  "Id",
 	}
 	list, _, err := client.OCITemplatesApi.TemplatesGet(*auth, params)
 	if err != nil {
