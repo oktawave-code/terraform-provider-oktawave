@@ -54,9 +54,9 @@ data "oktawave_templates" "templates" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_templates.templates", "templates.#", "1"),
-					resource.TestCheckResourceAttr("data.oktawave_templates.templates", "templates.0.name", "test-template"),
-					resource.TestCheckResourceAttrPair("data.oktawave_templates.templates", "templates.0.id", "oktawave_template.template", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_templates.templates", "items.#", "1"),
+					resource.TestCheckResourceAttr("data.oktawave_templates.templates", "items.0.name", "test-template"),
+					resource.TestCheckResourceAttrPair("data.oktawave_templates.templates", "items.0.id", "oktawave_template.template", "id"),
 				),
 			},
 		},

@@ -47,11 +47,11 @@ data "oktawave_groups" "test-groups" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "groups.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "groups.0.name", "test-group1"),
-					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "groups.1.name", "test-group3"),
-					resource.TestCheckResourceAttrPair("data.oktawave_groups.test-groups", "groups.0.id", "oktawave_group.group1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_groups.test-groups", "groups.1.id", "oktawave_group.group3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "items.0.name", "test-group1"),
+					resource.TestCheckResourceAttr("data.oktawave_groups.test-groups", "items.1.name", "test-group3"),
+					resource.TestCheckResourceAttrPair("data.oktawave_groups.test-groups", "items.0.id", "oktawave_group.group1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_groups.test-groups", "items.1.id", "oktawave_group.group3", "id"),
 				),
 			},
 		},

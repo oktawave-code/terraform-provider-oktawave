@@ -48,11 +48,11 @@ data "oktawave_disks" "disks" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "disks.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "disks.0.name", "disk1"),
-					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "disks.1.name", "disk3"),
-					resource.TestCheckResourceAttrPair("data.oktawave_disks.disks", "disks.0.id", "oktawave_disk.disk1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_disks.disks", "disks.1.id", "oktawave_disk.disk3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "items.0.name", "disk1"),
+					resource.TestCheckResourceAttr("data.oktawave_disks.disks", "items.1.name", "disk3"),
+					resource.TestCheckResourceAttrPair("data.oktawave_disks.disks", "items.0.id", "oktawave_disk.disk1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_disks.disks", "items.1.id", "oktawave_disk.disk3", "id"),
 				),
 			},
 		},

@@ -45,11 +45,11 @@ data "oktawave_ips" "test-datasource-ips" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "ips.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "ips.0.subregion_id", "1"),
-					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "ips.1.subregion_id", "5"),
-					resource.TestCheckResourceAttrPair("data.oktawave_ips.test-datasource-ips", "ips.0.id", "oktawave_ip.test-ip1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_ips.test-datasource-ips", "ips.1.id", "oktawave_ip.test-ip3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "items.0.subregion_id", "1"),
+					resource.TestCheckResourceAttr("data.oktawave_ips.test-datasource-ips", "items.1.subregion_id", "5"),
+					resource.TestCheckResourceAttrPair("data.oktawave_ips.test-datasource-ips", "items.0.id", "oktawave_ip.test-ip1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_ips.test-datasource-ips", "items.1.id", "oktawave_ip.test-ip3", "id"),
 				),
 			},
 		},

@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceSshKeys() *schema.Resource {
-	name := "ssh_keys"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getSshKeyDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getSshKeysList, mapRawSshKeyToDataSourceModel)
 	return &schema.Resource{

@@ -71,11 +71,11 @@ data "oktawave_instances" "instances" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "instances.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "instances.0.subregion_id", "1"),
-					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "instances.1.subregion_id", "1"),
-					resource.TestCheckResourceAttrPair("data.oktawave_instances.instances", "instances.0.id", "oktawave_instance.test-instance1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_instances.instances", "instances.1.id", "oktawave_instance.test-instance3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "items.0.subregion_id", "1"),
+					resource.TestCheckResourceAttr("data.oktawave_instances.instances", "items.1.subregion_id", "1"),
+					resource.TestCheckResourceAttrPair("data.oktawave_instances.instances", "items.0.id", "oktawave_instance.test-instance1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_instances.instances", "items.1.id", "oktawave_instance.test-instance3", "id"),
 				),
 			},
 		},

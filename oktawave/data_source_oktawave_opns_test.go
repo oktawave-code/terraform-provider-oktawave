@@ -41,12 +41,12 @@ data "oktawave_opns" "test-opns" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "opns.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "opns.0.name", "test-opn1"),
-					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "opns.1.name", "test-opn3"),
-					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "opns.1.private_ips.#", "0"),
-					resource.TestCheckResourceAttrPair("data.oktawave_opns.test-opns", "opns.0.id", "oktawave_opn.test-opn1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_opns.test-opns", "opns.1.id", "oktawave_opn.test-opn3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "items.0.name", "test-opn1"),
+					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "items.1.name", "test-opn3"),
+					resource.TestCheckResourceAttr("data.oktawave_opns.test-opns", "items.1.private_ips.#", "0"),
+					resource.TestCheckResourceAttrPair("data.oktawave_opns.test-opns", "items.0.id", "oktawave_opn.test-opn1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_opns.test-opns", "items.1.id", "oktawave_opn.test-opn3", "id"),
 				),
 			},
 		},

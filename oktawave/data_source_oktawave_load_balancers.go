@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceLoadBalancers() *schema.Resource {
-	name := "load_balancers"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getLoadBalancerDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getLoadBalancersList, mapRawLoadBalancerToDataSourceModel)
 	return &schema.Resource{

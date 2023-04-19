@@ -46,9 +46,9 @@ data "oktawave_oks_clusters" "test-oks-clusters" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_oks_clusters.test-oks-clusters", "oks_clusters.#", "1"),
-					resource.TestCheckResourceAttrPair("data.oktawave_oks_clusters.test-oks-clusters", "oks_clusters.0.name", "oktawave_oks_cluster.test-oks-cluster1", "id"),
-					// resource.TestCheckResourceAttrPair("data.oktawave_oks_clusters.test-oks-clusters", "oks_clusters.1.name", "oktawave_oks_cluster.test-oks-cluster3", "name"),
+					resource.TestCheckResourceAttr("data.oktawave_oks_clusters.test-oks-clusters", "items.#", "1"),
+					resource.TestCheckResourceAttrPair("data.oktawave_oks_clusters.test-oks-clusters", "items.0.name", "oktawave_oks_cluster.test-oks-cluster1", "id"),
+					// resource.TestCheckResourceAttrPair("data.oktawave_oks_clusters.test-oks-clusters", "items.1.name", "oktawave_oks_cluster.test-oks-cluster3", "name"),
 				),
 			},
 		},

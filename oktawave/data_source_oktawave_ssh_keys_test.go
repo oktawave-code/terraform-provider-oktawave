@@ -44,11 +44,11 @@ data "oktawave_ssh_keys" "keys" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "ssh_keys.#", "2"),
-					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "ssh_keys.0.name", "test-key1"),
-					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "ssh_keys.1.name", "test-key3"),
-					resource.TestCheckResourceAttrPair("data.oktawave_ssh_keys.keys", "ssh_keys.0.id", "oktawave_ssh_key.key1", "id"),
-					resource.TestCheckResourceAttrPair("data.oktawave_ssh_keys.keys", "ssh_keys.1.id", "oktawave_ssh_key.key3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "items.#", "2"),
+					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "items.0.name", "test-key1"),
+					resource.TestCheckResourceAttr("data.oktawave_ssh_keys.keys", "items.1.name", "test-key3"),
+					resource.TestCheckResourceAttrPair("data.oktawave_ssh_keys.keys", "items.0.id", "oktawave_ssh_key.key1", "id"),
+					resource.TestCheckResourceAttrPair("data.oktawave_ssh_keys.keys", "items.1.id", "oktawave_ssh_key.key3", "id"),
 				),
 			},
 		},

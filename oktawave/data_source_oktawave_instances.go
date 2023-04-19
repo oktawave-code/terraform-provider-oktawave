@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceInstances() *schema.Resource {
-	name := "instances"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getInstanceDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getInstancesList, mapRawInstancesToDataSourceModel)
 	return &schema.Resource{

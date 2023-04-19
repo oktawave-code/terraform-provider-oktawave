@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceTemplates() *schema.Resource {
-	name := "templates"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getTemplateDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getTemplatesList, mapRawTemplateToDataSourceModel)
 	return &schema.Resource{

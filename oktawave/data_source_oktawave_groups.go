@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceGroups() *schema.Resource {
-	name := "groups"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getGroupDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getGroupsList, mapRawGroupToDataSourceModel)
 	return &schema.Resource{

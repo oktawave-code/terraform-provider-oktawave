@@ -40,11 +40,11 @@ data "oktawave_load_balancers" "test_datasource_lbs" {
 			{
 				Config: resourcesConfig + dataSourceConfig,
 				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "load_balancers.#", "1"),
-					resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "load_balancers.0.group_name", "test-lb-group1"),
-					// resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "load_balancers.1.name", "test-lb-group3"),
-					resource.TestCheckResourceAttrPair("data.oktawave_load_balancers.test_datasource_lbs", "load_balancers.0.group_id", "oktawave_group.test-lb-group1", "id"),
-					// resource.TestCheckResourceAttrPair("data.oktawave_load_balancers.test_datasource_lbs", "load_balancers.1.group_id", "oktawave_group.test-lb-group3", "id"),
+					resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "items.#", "1"),
+					resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "items.0.group_name", "test-lb-group1"),
+					// resource.TestCheckResourceAttr("data.oktawave_load_balancers.test_datasource_lbs", "items.1.name", "test-lb-group3"),
+					resource.TestCheckResourceAttrPair("data.oktawave_load_balancers.test_datasource_lbs", "items.0.group_id", "oktawave_group.test-lb-group1", "id"),
+					// resource.TestCheckResourceAttrPair("data.oktawave_load_balancers.test_datasource_lbs", "items.1.group_id", "oktawave_group.test-lb-group3", "id"),
 				),
 			},
 		},

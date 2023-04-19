@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceIps() *schema.Resource {
-	name := "ips"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getIpDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getIpsList, mapRawIpToDataSourceModel)
 	return &schema.Resource{
