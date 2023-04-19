@@ -8,7 +8,7 @@ import (
 )
 
 func dataSourceOksClusters() *schema.Resource {
-	name := "oks_clusters"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getOksClusterDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getOksClustersList, mapRawOksClusterToDataSourceModel)
 	return &schema.Resource{

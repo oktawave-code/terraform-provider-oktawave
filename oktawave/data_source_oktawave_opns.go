@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceOpns() *schema.Resource {
-	name := "opns"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getOpnDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getOpnsList, mapRawOpnToDataSourceModel)
 	return &schema.Resource{

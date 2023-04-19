@@ -9,7 +9,7 @@ import (
 )
 
 func dataSourceDisks() *schema.Resource {
-	name := "disks"
+	name := "items"
 	dataSourceSchema := makeDataSourceSchema(name, getDiskDataSourceSchema)
 	dataSourceReadFunction := makeDataSourceRead(name, dataSourceSchema, getDisksList, mapRawDiskToDataSourceModel)
 	return &schema.Resource{
