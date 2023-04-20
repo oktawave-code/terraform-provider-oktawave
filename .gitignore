@@ -1,4 +1,4 @@
 terraform-provider-oktawave
 *~
-.*
 terraform.tfstate*
+.DS_Store
